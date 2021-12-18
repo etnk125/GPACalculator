@@ -13,11 +13,28 @@ function addRow(table, id, credit, grade) {
   newRow.innerHTML =
     '  <tr> <th scope="row">' +
     number +
-    '</th>  <td colspan="2">' +
+    '</th>  <td colspan="3">' +
     (id == "" ? "unnamed" : id) +
     "</td>   <td>" +
     credit +
     "</td>   <td>" +
     grade +
     "</td>  </tr> ";
+  GPADisplay();
+}
+function GPACal() {
+  let sumGrade = 0;
+  let sumCredit = 0;
+  table = document.getElementById("subjectTable");
+  for (let r = 1; r < table.rows.length; r++) {
+    let credit = Number(table.rows[r].cells[2].innerHTML);
+    let grade = Number(table.rows[r].cells[3].innerHTML);
+    sumCredit += credit;
+    sumGrade += credit * grade;
+  }
+  return sumCredit == 0 ? 0 : sumGrade / sumCredit;
+}
+
+function GPADisplay() {
+  document.getElementById("GPA").innerHTML = "Your GPA : " + GPACal().toFixed(2);
 }
